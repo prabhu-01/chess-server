@@ -6,7 +6,7 @@ const SOCKET_URL = 'ws://localhost:8080';
 
 function App() {
   const [gameState, setGameState] = useState(null);
-  const [player, setPlayer] = useState('playerA'); // Track current player
+  const [player, setPlayer] = useState('playerA');
   const { sendJsonMessage, lastMessage } = useWebSocket(SOCKET_URL, {
     onOpen: () => console.log('WebSocket connection established'),
   });
@@ -17,7 +17,7 @@ function App() {
       if (data.type === 'state') {
         setGameState(data.gameState);
       } else if (data.type === 'player') {
-        setPlayer(data.playerName); // Set player when assigned
+        setPlayer(data.playerName);
         console.log(`You are assigned as ${data.playerName}`);
       }
     }
