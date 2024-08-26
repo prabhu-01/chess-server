@@ -1,0 +1,140 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #282c34;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.App {
+  text-align: center;
+  max-width: 800px;
+  margin: auto;
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Header Styles */
+h1 {
+  color: #61dafb;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Grid Styles */
+.GridDisplay {
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  grid-template-rows: repeat(5, 60px);
+  gap: 5px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.GridDisplay div {
+  background-color: #3b3b3b;
+  border: 2px solid #444;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.GridDisplay div:hover {
+  background-color: #555;
+}
+
+/* Controls Styles */
+.Controls {
+  margin-top: 20px;
+}
+
+.Controls h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #61dafb;
+}
+
+.Controls label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.Controls select {
+  padding: 8px 12px;
+  margin-left: 10px;
+  border: 2px solid #61dafb;
+  border-radius: 5px;
+  background-color: #3b3b3b;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.Controls button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #61dafb;
+  color: #282c34;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Controls button:hover {
+  background-color: #21a1f1;
+}
+
+/* Button Styles */
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #61dafb;
+  color: #282c34;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #21a1f1;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .App {
+    padding: 10px;
+  }
+
+  .GridDisplay {
+    grid-template-columns: repeat(5, 50px);
+    grid-template-rows: repeat(5, 50px);
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .Controls label {
+    font-size: 0.9rem;
+  }
+
+  .Controls select, .Controls button {
+    font-size: 0.9rem;
+  }
+}
