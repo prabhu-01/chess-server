@@ -52,6 +52,7 @@ This guide provides instructions on how to set up and run the WebSocket server f
     After installing the dependencies, start the server using the following command:
 
     ```bash
+    cd backend
     node server.js
     ```
 
