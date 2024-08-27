@@ -6,7 +6,8 @@ const SOCKET_URL = 'ws://localhost:8080';
 
 function App() {
   const [gameState, setGameState] = useState(null);
-  const [player, setPlayer] = useState('playerA');
+  const [player, setPlayer] = useState(null);
+  const [gamePhase, setGamePhase] = useState('notStarted');
   const { sendJsonMessage, lastMessage } = useWebSocket(SOCKET_URL, {
     onOpen: () => console.log('WebSocket connection established'),
   });
@@ -25,33 +26,38 @@ function App() {
 
   const initializeGame = useCallback(() => {
     sendJsonMessage({ type: 'initialize' });
+    setGamePhase('selectPlayer');
   }, [sendJsonMessage]);
 
-  const makeMove = useCallback(
-    (characterId, move) => {
-      sendJsonMessage({ type: 'move', player, characterId, move });
-    },
-    [sendJsonMessage, player]
-  );
+  const selectPlayer = (playerName) => {
+    setPlayer(playerName);
+    setGamePhase('inProgress');
+  };
 
-  const handlePlayerChange = (e) => {
-    setPlayer(e.target.value);
+  // Define the makeMove function
+  const makeMove = (characterId, move) => {
+    sendJsonMessage({
+      type: 'move',
+      player: player,
+      characterId: characterId,
+      move: move,
+    });
   };
 
   return (
     <div className="App">
       <h1>Turn-Based Chess-like Game</h1>
-      <button onClick={initializeGame}>Start New Game</button>
-      <div>
-        <label>
-          Select Player:
-          <select value={player} onChange={handlePlayerChange}>
-            <option value="playerA">Player A</option>
-            <option value="playerB">Player B</option>
-          </select>
-        </label>
-      </div>
-      {gameState && (
+      {gamePhase === 'notStarted' && (
+        <button onClick={initializeGame}>Start New Game</button>
+      )}
+      {gamePhase === 'selectPlayer' && (
+        <div>
+          <h2>Select Player:</h2>
+          <button onClick={() => selectPlayer('playerA')}>Player A</button>
+          <button onClick={() => selectPlayer('playerB')}>Player B</button>
+        </div>
+      )}
+      {gamePhase === 'inProgress' && gameState && (
         <div>
           <GridDisplay grid={gameState.grid} player={player} />
           <Controls onMove={makeMove} />
@@ -112,8 +118,8 @@ function Controls({ onMove }) {
     { id: 'P1', name: 'Pawn 1' },
     { id: 'P2', name: 'Pawn 2' },
     { id: 'P3', name: 'Pawn 3' },
-    { id: 'H1', name: 'Hero1' },
-    { id: 'H2', name: 'Hero2' }
+    { id: 'H1', name: 'Hero 1' },
+    { id: 'H2', name: 'Hero 2' }
   ];
 
   const moves = [
@@ -175,6 +181,5 @@ function Controls({ onMove }) {
     </div>
   );
 }
-
 
 export default App;
